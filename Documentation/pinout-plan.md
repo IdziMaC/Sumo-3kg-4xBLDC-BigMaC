@@ -1,6 +1,6 @@
 # Plan pinów STM32G474VET6
 
-Status: **propozycja do zastosowania w STM32CubeMX; jeszcze niewdrożona**.
+Status: **wdrożony w STM32CubeMX 6.15.0 i zweryfikowany generacją kodu**.
 
 ## Pamięć i napęd
 
@@ -13,6 +13,11 @@ Status: **propozycja do zastosowania w STM32CubeMX; jeszcze niewdrożona**.
 | ESC2 telemetria | USART2_RX | PD6 |
 | ESC3 telemetria | USART3_RX | PD9 |
 | ESC4 telemetria | UART4_RX | PC11 |
+
+Tryb asynchroniczny CubeMX rezerwuje również piny TX dla interfejsów telemetrii:
+LPUART1_TX=PC1, USART2_TX=PD5, USART3_TX=PB10 i UART4_TX=PC10. Nie są one
+wymagane przez odbiór telemetrii ESC i mogą pozostać niepodłączone lub trafić na
+pola testowe PCB.
 
 ## Komunikacja i sensory cyfrowe
 
@@ -46,3 +51,21 @@ DATA_READY: PA1–PA3.
 | SWDIO/SWCLK | SYS | PA13 / PA14 |
 
 PF0/PF1 pozostają zarezerwowane dla HSE. PB8 pozostaje jako BOOT0/test pad.
+
+## Parametry bazowe
+
+- HSE: 8 MHz, PLL: 170 MHz; HSI48 zasila domenę USB;
+- I2C2: Fast Mode 400 kHz;
+- ADC3: skan 8 kanałów, kolejność TCRT1–TCRT8, próbkowanie 47,5 cyklu;
+- QSPI: rozmiar adresowy 8 MiB (`FlashSize=22`), preskaler 1;
+- SPI2 i SPI4: początkowo 5,3125 MHz przy zegarze 170 MHz;
+- TIM8 ma cztery wyjścia PWM przygotowane pod DShot;
+- TIM2_CH1 pracuje jako input capture dla TSOP4838;
+- TIM4_CH4 jest wyjściem PWM buzzera;
+- po `MX_GPIO_Init()` linie `IMU_CS`, `OLED_CS`, `OLED_RESET` i
+  `TOF_MUX_RESET` startują w stanie wysokim, natomiast `TEST_LED` i `OLED_DC`
+  w stanie niskim.
+
+DMA, priorytety przerwań i docelowe parametry czasowe DShot zostaną dobrane
+razem z pierwszą nieblokującą warstwą sterowników. Na tym etapie nie uruchamia
+się wyjść PWM ani transmisji do ESC.
