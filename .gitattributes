@@ -1,0 +1,33 @@
+* text=auto
+
+.gitattributes text eol=lf
+.gitignore text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+*.s text eol=lf
+*.ld text eol=lf
+*.ioc text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ps1 text eol=crlf
+
+# Zachowujemy odziedziczone formatowanie plików producenta i generatora.
+Firmware/STM32G474VET6-module-board/Drivers/** -whitespace
+Firmware/STM32G474VET6-module-board/Core/Startup/** -whitespace
+Firmware/STM32G474VET6-module-board/Core/Src/system_stm32g4xx.c -whitespace
+Firmware/STM32G474VET6-module-board/.mxproject -whitespace
+
+# Duże pliki CAD i dokumenty binarne przechowujemy przez Git LFS.
+*.step filter=lfs diff=lfs merge=lfs -text
+*.stp filter=lfs diff=lfs merge=lfs -text
+*.stl filter=lfs diff=lfs merge=lfs -text
+*.3mf filter=lfs diff=lfs merge=lfs -text
+*.f3d filter=lfs diff=lfs merge=lfs -text
+*.f3z filter=lfs diff=lfs merge=lfs -text
+*.FCStd filter=lfs diff=lfs merge=lfs -text
+*.sldprt filter=lfs diff=lfs merge=lfs -text
+*.sldasm filter=lfs diff=lfs merge=lfs -text
+*.eprj filter=lfs diff=lfs merge=lfs -text
+*.xlsx filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,26 @@
+# STM32CubeIDE build outputs
+**/Debug/
+**/Release/
+**/*.o
+**/*.d
+**/*.su
+**/*.elf
+**/*.map
+**/*.list
+**/*.hex
+**/*.bin
+
+# Local IDE and operating-system state
+**/.metadata/
+.idea/
+Thumbs.db
+Desktop.ini
+
+# Temporary and generated files
+**/tmp/
+**/output/
+**/outputs/
+*.tmp
+*.bak
+*.autosave
+~$*
